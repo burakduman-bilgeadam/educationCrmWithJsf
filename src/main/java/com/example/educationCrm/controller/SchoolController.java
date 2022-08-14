@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Scope(value = "view")
 @Controller
@@ -27,5 +29,18 @@ public class SchoolController {
 
     public void save(){
         this.schoolService.save(this.school);
+        this.school = new School();
+    }
+
+    public List<School> getList(){
+        return this.schoolService.findAll();
+    }
+
+    public void delete(School school){
+        this.schoolService.delete(school);
+    }
+
+    public void update(School school){
+        this.school = school;
     }
 }

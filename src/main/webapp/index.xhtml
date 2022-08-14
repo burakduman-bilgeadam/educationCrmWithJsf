@@ -11,7 +11,28 @@
 		<h:outputLabel value="Okul Adı" />
 		<h:inputText value="#{schoolController.school.name}" />
 		<h:commandButton value="Kaydet"
-						 actionListener="#{schoolController.save}" />
+						 actionListener="#{schoolController.save}"
+		/>
+		<p:dataTable id="schoolTableId"
+					 var="sch" value="#{schoolController.getList()}">
+			<f:facet name="header">
+				Okul Listesi
+			</f:facet>
+			<p:column headerText="Numara">
+				<h:outputText value="#{sch.id}" />
+			</p:column>
+			<p:column headerText="Adı">
+				<h:outputText value="#{sch.name}" />
+			</p:column>
+			<p:column headerText="Sil/Güncelle">
+				<h:commandButton value="sil"
+					actionListener="#{schoolController.delete(sch)}"
+				/>
+				<h:commandButton value="Güncelle"
+								 actionListener="#{schoolController.update(sch)}"
+				/>
+			</p:column>
+		</p:dataTable>
 	</h:form>
 </body>
 </html>

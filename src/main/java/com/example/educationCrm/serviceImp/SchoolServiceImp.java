@@ -37,8 +37,8 @@ public class SchoolServiceImp implements SchoolService {
 
     @Transactional
     @Override
-    public void delete(SchoolDTO schoolDTO) {
-        this.schoolRepository.deleteById(schoolDTO.getId());
+    public void delete(School school) {
+        this.schoolRepository.delete(school);
     }
 
     @Transactional(readOnly = true)
@@ -46,4 +46,11 @@ public class SchoolServiceImp implements SchoolService {
     public List<SchoolInformationDTO> findAllName() {
         return this.schoolRepository.getSchoolBy();
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<School> findAll(){
+        return this.schoolRepository.findAll();
+    }
+
 }

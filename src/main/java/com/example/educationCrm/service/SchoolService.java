@@ -9,8 +9,10 @@ import java.util.List;
 public interface SchoolService {
     public void save(School school);
     public void update(SchoolDTO schoolDTO);
-    public void delete(SchoolDTO schoolDTO);
+    public void delete(School school);
 
     public List<SchoolInformationDTO> findAllName();
+
+    public List<School> findAll();
 
 }
