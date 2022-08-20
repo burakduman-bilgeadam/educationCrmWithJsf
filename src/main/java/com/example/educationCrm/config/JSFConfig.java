@@ -35,6 +35,7 @@ public class JSFConfig implements ServletContextAware {
         servletContext.setInitParameter("primefaces.CLIENT_SIDE_VALIDATION", "true");
         servletContext.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
         servletContext.setInitParameter("primefaces.FONT_AWESOME", "true");
+        servletContext.setInitParameter("primefaces.THEME","omega");
         servletContext.setInitParameter("primeFacesFileUploadFilter", "Faces Servlet");
     }
     //JSF Configration Sonu

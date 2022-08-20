@@ -9,11 +9,10 @@
 	<body>
 		<ui:composition template = "pageTemplate.xhtml">
 			<ui:define name = "content">
-				<h:form id="schoolFormId">
-					<p:outputLabel value="Okul Adı" />
-					<p:inputText id="nameId" value="#{schoolController.school.name}" />
-					<p:commandButton value="Kaydet"
-									 update="schoolFormId:schoolTableId schoolFormId:nameId"
+				<h:form>
+					<h:outputLabel value="Sınıf Adı" />
+					<h:inputText value="#{schoolController.school.name}" />
+					<h:commandButton value="Kaydet"
 									 actionListener="#{schoolController.save}"
 					/>
 					<p:dataTable id="schoolTableId"
@@ -28,13 +27,11 @@
 							<h:outputText value="#{sch.name}" />
 						</p:column>
 						<p:column headerText="Sil/Güncelle">
-							<p:commandButton value="sil"
+							<h:commandButton value="sil"
 								actionListener="#{schoolController.delete(sch)}"
-							 	update="schoolTableId"
 							/>
-							<p:commandButton value="Güncelle"
+							<h:commandButton value="Güncelle"
 											 actionListener="#{schoolController.update(sch)}"
-											 update="schoolFormId:nameId"
 							/>
 						</p:column>
 					</p:dataTable>
