@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,15 @@ public class SchoolController {
 
     public void save(){
         this.schoolService.save(this.school);
+        saveMessage();
         this.school = new School();
+    }
+
+    public void saveMessage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null,
+                new FacesMessage("Kaydedildi",
+                        "Kaydedilen Okul : " + school.getName()));
     }
 
     public List<School> getList(){

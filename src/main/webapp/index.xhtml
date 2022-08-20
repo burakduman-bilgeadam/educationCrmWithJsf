@@ -9,14 +9,19 @@
 	<body>
 		<ui:composition template = "pageTemplate.xhtml">
 			<ui:define name = "content">
+				<p:growl id="growl" showDetail="true" sticky="false"/>
 				<h:form id="schoolFormId">
 					<p:outputLabel value="Okul Adı" />
 					<p:inputText id="nameId" value="#{schoolController.school.name}" />
 					<p:commandButton value="Kaydet"
-									 update="schoolFormId:schoolTableId schoolFormId:nameId"
+									 update="schoolFormId:schoolTableId
+									 schoolFormId:nameId growl"
 									 actionListener="#{schoolController.save}"
 					/>
 					<p:dataTable id="schoolTableId"
+								 rows="10"
+								 paginator="true"
+								 rowsPerPageTemplate="5,10,15"
 								 var="sch" value="#{schoolController.getList()}">
 						<f:facet name="header">
 							Okul Listesi
