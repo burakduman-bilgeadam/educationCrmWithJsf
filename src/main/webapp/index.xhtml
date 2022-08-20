@@ -34,8 +34,8 @@
 						</p:column>
 						<p:column headerText="Sil/Güncelle">
 							<p:commandButton value="sil"
-								actionListener="#{schoolController.delete(sch)}"
-							 	update="schoolTableId"
+											 actionListener="#{schoolController.selectSchool(sch)}"
+											 onclick="PF('dialog').show();"
 							/>
 							<p:commandButton value="Güncelle"
 											 actionListener="#{schoolController.update(sch)}"
@@ -43,6 +43,21 @@
 							/>
 						</p:column>
 					</p:dataTable>
+					<p:dialog header="Bilgilendirme" widgetVar="dialog" modal="true"
+					closable="false" resizable="false" hideEffect="bounce">
+						<h:outputText value="Kaydı silmek istediğinize emin misiniz?" />
+						<br />
+						<h:panelGrid columns="2">
+							<p:commandButton value="Evet"
+											 onclick="PF('dialog').hide();"
+											 actionListener="#{schoolController.delete()}"
+											 update="schoolTableId growl"
+							/>
+							<p:commandButton value="Hayır"
+											 actionListener="#{schoolController.clearSelectedSchool()}"
+											 onclick="PF('dialog').hide();"/>
+						</h:panelGrid>
+					</p:dialog>
 				</h:form>
 			</ui:define>
 		</ui:composition>

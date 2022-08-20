@@ -21,6 +21,7 @@ import java.util.List;
 @Setter
 public class SchoolController {
     private School school;
+    private School selectedSchool;
     @Autowired
     private SchoolService schoolService;
 
@@ -31,23 +32,33 @@ public class SchoolController {
 
     public void save(){
         this.schoolService.save(this.school);
-        saveMessage();
+        infoMessage("Kaydedildi","Kaydedilen Okul : ",this.school);
         this.school = new School();
     }
 
-    public void saveMessage() {
+    public void infoMessage(String summary,String detail,School school) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null,
-                new FacesMessage("Kaydedildi",
-                        "Kaydedilen Okul : " + school.getName()));
+                new FacesMessage(summary,
+                        detail + school.getName()));
     }
 
     public List<School> getList(){
         return this.schoolService.findAll();
     }
 
-    public void delete(School school){
-        this.schoolService.delete(school);
+    public void delete(){
+        this.schoolService.delete(selectedSchool);
+        infoMessage("Silindi","Silinen Okul : ",this.selectedSchool);
+        selectedSchool = new School();
+    }
+
+    public void selectSchool(School school){
+        this.selectedSchool = school;
+    }
+
+    public void clearSelectedSchool(){
+        this.selectedSchool = new School();
     }
 
     public void update(School school){
