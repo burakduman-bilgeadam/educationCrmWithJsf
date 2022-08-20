@@ -57,6 +57,10 @@ public class SchoolController {
         this.selectedSchool = school;
     }
 
+    public void selectSchoolForUpdate(School school){
+        this.school = school;
+    }
+
     public void clearSelectedSchool(){
         this.selectedSchool = new School();
     }

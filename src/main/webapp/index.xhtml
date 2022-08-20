@@ -11,20 +11,19 @@
 			<ui:define name = "content">
 				<p:growl id="growl" showDetail="true" sticky="false"/>
 				<h:form id="schoolFormId">
-					<p:outputLabel value="Okul Adı" />
-					<p:inputText id="nameId" value="#{schoolController.school.name}" />
-					<p:commandButton value="Kaydet"
-									 update="schoolFormId:schoolTableId
-									 schoolFormId:nameId growl"
-									 actionListener="#{schoolController.save}"
-					/>
 					<p:dataTable id="schoolTableId"
 								 rows="10"
 								 paginator="true"
 								 rowsPerPageTemplate="5,10,15"
 								 var="sch" value="#{schoolController.getList()}">
 						<f:facet name="header">
-							Okul Listesi
+							<p:outputLabel value="Okul Listesi" />
+							<p:commandButton icon="fa fa-plus"
+									style="float: right"
+									onclick="PF('ekleDialog').show()"
+							/>
+							<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="fa fa-align-justify" />
+							<p:columnToggler datasource="schoolTableId" trigger="toggler" />
 						</f:facet>
 						<p:column headerText="Numara">
 							<h:outputText value="#{sch.id}" />
@@ -38,13 +37,16 @@
 											 onclick="PF('dialog').show();"
 							/>
 							<p:commandButton value="Güncelle"
-											 actionListener="#{schoolController.update(sch)}"
-											 update="schoolFormId:nameId"
+											 onclick="PF('guncelleDialog').show();"
+											 update="schoolFormId:guncelleDialog"
+											 actionListener="#{schoolController.selectSchoolForUpdate(sch)}"
 							/>
 						</p:column>
 					</p:dataTable>
-					<p:dialog header="Bilgilendirme" widgetVar="dialog" modal="true"
-					closable="false" resizable="false" hideEffect="bounce">
+					<p:dialog header="Bilgilendirme" widgetVar="dialog"
+							  modal="true"
+							  closable="false" resizable="false"
+							  hideEffect="bounce">
 						<h:outputText value="Kaydı silmek istediğinize emin misiniz?" />
 						<br />
 						<h:panelGrid columns="2">
@@ -56,6 +58,38 @@
 							<p:commandButton value="Hayır"
 											 actionListener="#{schoolController.clearSelectedSchool()}"
 											 onclick="PF('dialog').hide();"/>
+						</h:panelGrid>
+					</p:dialog>
+					<p:dialog header="Ekleme İşlemi" widgetVar="ekleDialog"
+							  modal="true" resizable="false"
+							  closable="true">
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Okul Adı" />
+							<p:inputText id="nameId" value="#{schoolController.school.name}" />
+							<p:outputLabel value="" />
+							<p:commandButton value="Kaydet"
+											 style="margin-left: 100px;margin-top: 40px;"
+											 update="schoolFormId:schoolTableId
+										 schoolFormId:nameId growl"
+											 onclick="PF('ekleDialog').hide()"
+											 actionListener="#{schoolController.save}"
+							/>
+						</h:panelGrid>
+					</p:dialog>
+					<p:dialog header="Güncelleme İşlemi" widgetVar="guncelleDialog"
+							  modal="true" resizable="false"
+							  closable="true" id="guncelleDialog">
+						<h:panelGrid columns="2" id="panelGridForGuncelle">
+							<p:outputLabel value="Okul Adı" />
+							<p:inputText id="nameIdForUpdate" value="#{schoolController.school.name}" />
+							<p:outputLabel value="" />
+							<p:commandButton value="Kaydet"
+											 style="margin-left: 100px;margin-top: 40px;"
+											 update="schoolFormId:schoolTableId
+											 nameIdForUpdate growl"
+											 onclick="PF('guncelleDialog').hide()"
+											 actionListener="#{schoolController.save}"
+							/>
 						</h:panelGrid>
 					</p:dialog>
 				</h:form>
