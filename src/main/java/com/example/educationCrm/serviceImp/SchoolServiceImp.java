@@ -41,6 +41,11 @@ public class SchoolServiceImp implements SchoolService {
         this.schoolRepository.delete(school);
     }
 
+    @Override
+    public School findByName(String name) {
+        return this.schoolRepository.findSchoolByName(name);
+    }
+
     @Transactional(readOnly = true)
     @Override
     public List<SchoolInformationDTO> findAllName() {

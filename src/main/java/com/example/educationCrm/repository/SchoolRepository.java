@@ -11,4 +11,5 @@ import java.util.List;
 public interface SchoolRepository
         extends JpaRepository<School,Long> {
     List<SchoolInformationDTO> getSchoolBy();
+    School findSchoolByName(String name);
 }

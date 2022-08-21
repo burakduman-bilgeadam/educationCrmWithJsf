@@ -3,10 +3,12 @@ package com.example.educationCrm.service;
 import com.example.educationCrm.model.dto.StudentClassDTO;
 import com.example.educationCrm.model.entity.StudentClass;
 
-public interface StudentClassService {
-    void save(String name);
-    StudentClass getStudentClassById(Long id);
+import java.util.List;
 
-    void update(StudentClassDTO studentClassDTO);
-    void delete(Long id);
+public interface StudentClassService {
+    void save(StudentClass studentClass);
+    List<StudentClass> findAll();
+
+    void update(StudentClass studentClass);
+    void delete(StudentClass studentClass);
 }

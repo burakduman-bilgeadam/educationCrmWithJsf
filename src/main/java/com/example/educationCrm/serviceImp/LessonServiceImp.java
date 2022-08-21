@@ -41,4 +41,9 @@ public class LessonServiceImp implements LessonService {
     public List<Lesson> findAll() {
         return (List<Lesson>)this.lessonRepository.findAll();
     }
+
+    @Override
+    public Lesson findByName(String name) {
+        return this.lessonRepository.findLessonByName(name);
+    }
 }

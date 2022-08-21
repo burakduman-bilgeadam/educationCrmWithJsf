@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+	<body>
+		<ui:composition template = "pageTemplate.xhtml">
+			<ui:define name = "content">
+				<!--  yorum satırı -->
+				<p:growl id="growl" sticky="false" showDetail="true" />
+				<h:form id="classFormId">
+					<p:dataTable id="classTableId" var="clss"
+							value="#{studentClassController.classList}">
+						<f:facet name="header">
+							<p:outputLabel value="Sınıf Listesi" />
+							<p:commandButton style="float: right"
+									onclick="PF('ekleDialog').show()"
+									icon="fa fa-plus" />
+						</f:facet>
+						<p:column headerText="Numarası">
+							<p:outputLabel value="#{clss.id}" />
+						</p:column>
+						<p:column headerText="Adı">
+							<p:outputLabel value="#{clss.name}" />
+						</p:column>
+						<p:column headerText="Güncelleme/Silme">
+							<p:commandButton value="Sil"
+											 actionListener="#{studentClassController.delete(clss)}"
+							update="growl classTableId">
+								<p:confirm header="Bilgilendirme"
+										   message="Silmek istediğinize emin misiniz?"
+										   icon="fa fa-exclamation-triangle" />
+							</p:commandButton>
+							<p:commandButton value="Güncelle"
+											 update="guncellemeDialogId"
+											 oncomplete="PF('guncellemeDialog').show()"
+											 actionListener="#{studentClassController.selectStudentClass(clss)}"
+							/>
+						</p:column>
+					</p:dataTable>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Evet" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check" />
+						<p:commandButton value="Hayır" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
+					</p:confirmDialog>
+				</h:form>
+				<p:dialog widgetVar="ekleDialog" closable="false"
+					resizable="false" modal="true" header="Sınıf Ekleme">
+					<h:form>
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Sınıf Adı: " />
+							<p:inputText id="saveNameId"
+										 value="#{studentClassController.studentClass.name}" />
+						</h:panelGrid>
+						<p:commandButton value="Kaydet"
+						actionListener="#{studentClassController.save()}"
+						oncomplete="PF('ekleDialog').hide()"
+						update="classFormId:classTableId saveNameId
+								growl"/>
+					</h:form>
+				</p:dialog>
+				<p:dialog id="guncellemeDialogId" widgetVar="guncellemeDialog" resizable="false"
+				header="Güncelleme İşlemi" modal="true">
+					<h:form>
+						<p:outputLabel value="Ders Adı:" />
+						<p:inputText value="#{studentClassController.selectedClass.name}" />
+						<p:commandButton value="Güncelle"
+										 oncomplete="PF('guncellemeDialog').hide()"
+										 actionListener="#{studentClassController.update()}"
+						update="growl classFormId:classTableId"/>
+					</h:form>
+				</p:dialog>
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>

@@ -35,57 +35,26 @@ public class TeacherServiceImp implements TeacherService {
 
     @Transactional
     @Override
-    public void save(TeacherDTO teacherDTO) {
-        Teacher teacher = this.modelMapperHelper
-                .convertToModel(teacherDTO,Teacher.class);
-        School school = this.schoolRepository
-                .findById(teacherDTO.getSchool_id())
-                .orElse(null);
-        Lesson lesson =  this.lessonRepository
-                .findById(teacherDTO.getLesson_id())
-                .orElse(null);
-        teacher.setLesson(lesson);
-        teacher.setSchool(school);
+    public void save(Teacher teacher) {
         this.teacherRepository.save(teacher);
     }
 
     @Transactional
     @Override
-    public void update(TeacherDTO teacherDTO) {
-        Optional<Teacher> teacherOptional =
-                this.teacherRepository.findById(teacherDTO.getId());
-        if(teacherOptional.isPresent()){
-            Teacher teacher = teacherOptional.get();
-           // teacher = modelMapperHelper.convertToModel(teacherDTO,Teacher.class);
-            teacher.setBirthDate(teacherDTO.getBirthDate());
-            teacher.setCreatedDate(teacherDTO.getCreatedDate());
-            teacher.setName(teacherDTO.getName());
-            teacher.setSurname(teacherDTO.getSurname());
-            School school = this.schoolRepository
-                    .findById(teacherDTO.getSchool_id())
-                    .orElse(null);
-            Lesson lesson =  this.lessonRepository
-                    .findById(teacherDTO.getLesson_id())
-                    .orElse(null);
-            teacher.setLesson(lesson);
-            teacher.setSchool(school);
-            this.teacherRepository.save(teacher);
-        }
+    public void update(Teacher teacher) {
+        this.teacherRepository.save(teacher);
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
-        this.teacherRepository.deleteById(id);
+    public void delete(Teacher teacher) {
+        this.teacherRepository.delete(teacher);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<TeacherDTO> findAll() {
-        return this.modelMapperHelper.mapAll(
-                this.teacherRepository.findAll()
-                ,TeacherDTO.class
-        );
+    public List<Teacher> findAll() {
+        return this.teacherRepository.findAll();
     }
 
     @Transactional

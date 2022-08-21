@@ -6,4 +6,12 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+    <converter>
+        <converter-id>lessonConverter</converter-id>
+        <converter-class>com.example.educationCrm.converter.LessonConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>schoolConverter</converter-id>
+        <converter-class>com.example.educationCrm.converter.SchoolConverter</converter-class>
+    </converter>
 </faces-config>

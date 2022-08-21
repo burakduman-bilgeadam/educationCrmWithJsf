@@ -11,6 +11,8 @@ public interface SchoolService {
     public void update(SchoolDTO schoolDTO);
     public void delete(School school);
 
+    public School findByName(String name);
+
     public List<SchoolInformationDTO> findAllName();
 
     public List<School> findAll();

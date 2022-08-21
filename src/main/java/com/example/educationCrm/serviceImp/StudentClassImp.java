@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,34 +17,25 @@ public class StudentClassImp implements StudentClassService {
     private StudentClassRepository studentClassRepository;
     @Transactional
     @Override
-    public void save(String name) {
-        StudentClass studentClass = new StudentClass();
-        studentClass.setName(name);
+    public void save(StudentClass studentClass) {
         this.studentClassRepository.save(studentClass);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public StudentClass getStudentClassById(Long id) {
-        return this.studentClassRepository.findById(id).get();
+    public List<StudentClass> findAll() {
+        return (List<StudentClass>)this.studentClassRepository.findAll();
     }
 
     @Transactional
     @Override
-    public void update(StudentClassDTO studentClassDTO) {
-       Optional<StudentClass> studentClassO =
-               this.studentClassRepository
-                .findById(studentClassDTO.getId());
-       if(studentClassO.isPresent()){
-           StudentClass studentClass = studentClassO.get();
-           studentClass.setName(studentClassDTO.getName());
-           this.studentClassRepository.save(studentClass);
-       }
+    public void update(StudentClass studentClass) {
+        this.studentClassRepository.save(studentClass);
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
-        this.studentClassRepository.deleteById(id);
+    public void delete(StudentClass studentClass) {
+        this.studentClassRepository.delete(studentClass);
     }
 }
