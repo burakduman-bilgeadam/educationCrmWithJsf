@@ -21,35 +21,24 @@ public class LessonServiceImp implements LessonService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void save(String name) {
-        Lesson lesson = new Lesson(name);
-        //Lesson lesson1 = new Lesson(name);
+    public void save(Lesson lesson) {
         this.lessonRepository.save(lesson);
-        //this.lessonRepository.save(lesson1);
     }
 
     @Transactional
     @Override
-    public void update(LessonDTO lessonDTO) {
-        Optional<Lesson> lessonOptional =
-                this.lessonRepository.findById(lessonDTO.getId());
-        if(lessonOptional.isPresent()){
-            Lesson lesson= lessonOptional.get();
-            lesson.setName(lessonDTO.getName());
-            this.lessonRepository.save(lesson);
-        }
+    public void update(Lesson lesson) {
+        this.lessonRepository.save(lesson);
     }
 
     @Transactional
     @Override
-    public void delete(Long id) {
-        this.lessonRepository.deleteById(id);
+    public void delete(Lesson lesson) {
+        this.lessonRepository.delete(lesson);
     }
 
     @Override
-    public List<LessonDTO> findAll() {
-        return modelMapperHelper.mapAll(
-                (List<Lesson>)this.lessonRepository.findAll()
-                ,LessonDTO.class);
+    public List<Lesson> findAll() {
+        return (List<Lesson>)this.lessonRepository.findAll();
     }
 }
