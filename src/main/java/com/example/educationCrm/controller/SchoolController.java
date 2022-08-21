@@ -4,6 +4,7 @@ import com.example.educationCrm.model.entity.School;
 import com.example.educationCrm.service.SchoolService;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.context.PrimeRequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,14 @@ public class SchoolController {
     }
 
     public void update(School school){
+        this.school = school;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
         this.school = school;
     }
 }
