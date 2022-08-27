@@ -11,4 +11,6 @@ public interface StudentClassService {
 
     void update(StudentClass studentClass);
     void delete(StudentClass studentClass);
+
+    StudentClass findByName(String name);
 }

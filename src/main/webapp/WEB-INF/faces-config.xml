@@ -14,4 +14,8 @@
         <converter-id>schoolConverter</converter-id>
         <converter-class>com.example.educationCrm.converter.SchoolConverter</converter-class>
     </converter>
+    <converter>
+        <converter-id>studentClassConverter</converter-id>
+        <converter-class>com.example.educationCrm.converter.StudentClassConverter</converter-class>
+    </converter>
 </faces-config>

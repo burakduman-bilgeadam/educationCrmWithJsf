@@ -38,4 +38,9 @@ public class StudentClassImp implements StudentClassService {
     public void delete(StudentClass studentClass) {
         this.studentClassRepository.delete(studentClass);
     }
+
+    @Override
+    public StudentClass findByName(String name) {
+        return this.studentClassRepository.findStudentClassByName(name);
+    }
 }

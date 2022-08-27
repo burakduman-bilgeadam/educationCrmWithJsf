@@ -32,24 +32,7 @@ public class StudentServiceImp implements StudentService {
 
     @Transactional
     @Override
-    public void save(StudentDTO studentDto) throws ParseException {
-        Student student = new Student();
-        /*
-        student.setBirthDate(formatter.parse(studentDto.getBirthDate()));
-        */
-        student.setBirthDate(studentDto.getBirthDate());
-        student.setNumber(studentDto.getNumber());
-        student.setName(studentDto.getName());
-        student.setSurname(studentDto.getSurname());
-        student.setCreatedDate(new Date());
-        StudentClass studentClass = this.studentClassRepository
-                .findById(studentDto.getStudentClassId())
-                .orElse(null);
-        School school = this.schoolRepository
-                .findById(studentDto.getSchoolId())
-                .orElse(null);
-        student.setSchool(school);
-        student.setStudentClass(studentClass);
+    public void save(Student student) throws ParseException {
         this.studentRepository.save(student);
     }
 
@@ -98,5 +81,11 @@ public class StudentServiceImp implements StudentService {
     @Override
     public Student findById(Long id) {
         return this.studentRepository.findById(id).orElse(null);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Student> findAllStudent() {
+        return this.studentRepository.findAll();
     }
 }

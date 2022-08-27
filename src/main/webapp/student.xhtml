@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<body>
+    <ui:composition template = "pageTemplate.xhtml">
+        <ui:define name = "content">
+            <h:form id="studentFormId">
+                <p:dataTable id="studentTableId" var="stdnt" value="#{studentController.students}">
+                    <f:facet name="header">
+                        <p:outputLabel value="Öğrenci Listesi" />
+                        <p:commandButton value="Ekle" style="float:right;"
+                          onclick="PF('ekleDialog').show()"/>
+                    </f:facet>
+                    <p:column headerText="Numarası">
+                        <p:outputLabel value="#{stdnt.number}" />
+                    </p:column>
+                    <p:column headerText="Adı">
+                        <p:outputLabel value="#{stdnt.name}" />
+                    </p:column>
+                    <p:column headerText="Soyadı">
+                        <p:outputLabel value="#{stdnt.surname}" />
+                    </p:column>
+                    <p:column headerText="Doğum Tarihi">
+                        <p:outputLabel value="#{stdnt.birthDate}" />
+                    </p:column>
+                    <p:column headerText="Sınıfı">
+                        <p:outputLabel value="#{stdnt.studentClass.name}" />
+                    </p:column>
+                    <p:column headerText="Okulu">
+                        <p:outputLabel value="#{stdnt.school.name}" />
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="Sil" />
+                        <p:commandButton value="Güncelle" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <p:dialog widgetVar="ekleDialog" modal="true" header="Öğrenci Ekle"
+            closable="true" hideEffect="blind" resizable="false">
+                <p:growl id="growl" showDetail="true" sticky="false" />
+                <h:form>
+                    <h:panelGrid columns="2" >
+                        <p:outputLabel value="Adı : " />
+                        <p:inputText value="#{studentController.student.name}" />
+                        <p:outputLabel value="Soyadı : " />
+                        <p:inputText value="#{studentController.student.surname}" />
+                        <p:outputLabel value="Numara : " />
+                        <p:inputText value="#{studentController.student.number}" />
+                        <p:outputLabel value="Doğum Tarihi : " />
+                        <p:datePicker value="#{studentController.student.birthDate}" />
+                        <p:outputLabel value="Okul" />
+                        <p:selectOneMenu value="#{studentController.student.school}" editable="true"
+                                    converter="schoolConverter">
+                            <f:selectItem itemLabel="Birini giriniz" itemValue="" />
+                            <f:selectItems value="#{studentController.schools}"
+                                var="s" itemValue="#{s}" itemLabel="#{s.name}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Sınıf" />
+                        <p:selectOneMenu value="#{studentController.student.studentClass}" editable="true"
+                                         converter="studentClassConverter">
+                            <f:selectItem itemLabel="Birini giriniz" itemValue="" />
+                            <f:selectItems value="#{studentController.classes}"
+                                           var="c" itemValue="#{c}" itemLabel="#{c.name}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <p:commandButton value="Kaydet" actionListener="#{studentController.save()}"
+                                     oncomplete="PF('ekleDialog').hide()"
+                                     update="studentFormId:studentTableId growl" />
+                </h:form>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</body>
+</html>

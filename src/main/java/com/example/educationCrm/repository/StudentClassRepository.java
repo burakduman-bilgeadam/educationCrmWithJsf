@@ -11,4 +11,5 @@ public interface StudentClassRepository
     /*@EntityGraph(value = "StudentClass.detail",
             type = EntityGraph.EntityGraphType.LOAD)
     StudentClass getById(Long Id);*/
+    StudentClass findStudentClassByName(String name);
 }

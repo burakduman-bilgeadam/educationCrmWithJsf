@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.util.List;
 
 public interface StudentService {
-    void save(StudentDTO studentDto) throws ParseException;
+    void save(Student student) throws ParseException;
     StudentInformationDTO getNameSurnameById(Long id);
 
     void update(StudentDTO studentDTO);
@@ -17,4 +17,6 @@ public interface StudentService {
     List<StudentInformationDTO> getBySchoolName(String schoolName);
 
     Student findById(Long id);
+
+    List<Student> findAllStudent();
 }

@@ -13,7 +13,10 @@
 				<p:growl id="growl" sticky="false" showDetail="true" />
 				<h:form id="teacherFormId">
 					<p:dataTable id="teacherTableId" var="teacher"
-							value="#{teacherController.teacherList}">
+								 value="#{teacherController.teacherList}"
+								 rows="10"
+								 paginator="true"
+								 rowsPerPageTemplate="5,10,15">
 						<f:facet name="header">
 							<p:outputLabel value="Öğretmen Listesi" />
 							<p:commandButton style="float: right"
@@ -60,7 +63,7 @@
 						<p:commandButton value="Hayır" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-times" />
 					</p:confirmDialog>
 				</h:form>
-				<p:dialog widgetVar="ekleDialog" closable="false"
+				<p:dialog widgetVar="ekleDialog" closable="true"
 					resizable="false" modal="true" header="Öğretmen Ekleme">
 					<h:form>
 						<h:panelGrid columns="2">
