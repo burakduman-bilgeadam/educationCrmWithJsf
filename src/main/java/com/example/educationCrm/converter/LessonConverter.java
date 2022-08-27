@@ -1,9 +1,7 @@
 package com.example.educationCrm.converter;
 
 import com.example.educationCrm.model.entity.Lesson;
-import com.example.educationCrm.service.LessonService;
 import com.example.educationCrm.serviceImp.LessonServiceImp;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.faces.component.UIComponent;
