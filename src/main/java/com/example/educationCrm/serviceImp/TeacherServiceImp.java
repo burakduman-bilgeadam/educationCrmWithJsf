@@ -90,4 +90,9 @@ public class TeacherServiceImp implements TeacherService {
             throws Exception {
         return this.teacherRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Teacher> findTeacherByLesson(Lesson lesson) {
+        return this.teacherRepository.teacherByLesson(lesson);
+    }
 }

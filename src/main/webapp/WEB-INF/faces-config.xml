@@ -18,4 +18,12 @@
         <converter-id>studentClassConverter</converter-id>
         <converter-class>com.example.educationCrm.converter.StudentClassConverter</converter-class>
     </converter>
+    <converter>
+        <converter-id>teacherConverter</converter-id>
+        <converter-class>com.example.educationCrm.converter.TeacherConverter</converter-class>
+    </converter>
+    <converter>
+        <converter-id>studentConverter</converter-id>
+        <converter-class>com.example.educationCrm.converter.StudentConverter</converter-class>
+    </converter>
 </faces-config>

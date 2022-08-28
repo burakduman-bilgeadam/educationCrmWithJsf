@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+	<body>
+		<ui:composition template = "pageTemplate.xhtml">
+			<ui:define name = "content">
+				<p:growl id="growl" sticky="false" showDetail="true" />
+				<h:form id="assingFormId">
+					<h:panelGrid columns="2">
+						<p:outputLabel value="Ders : " />
+						<p:selectOneMenu value="#{teacherController.selectedLesson}"
+										 editable="true" converter="lessonConverter">
+							<p:ajax event="change" update="teacherListId"
+									listener="#{teacherController.changeLesson()}" />
+							<f:selectItem itemLabel="Birini Seçiniz" itemValue="" />
+							<f:selectItems value="#{teacherController.lessonList}"
+										   itemLabel="#{lesson.name}"
+										   itemValue="#{lesson}" var="lesson" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Öğretmen : " />
+						<p:selectOneMenu id="teacherListId" value="#{teacherController.selectedTeacher}"
+						editable="true" converter="teacherConverter">
+							<f:selectItem itemLabel="Birini Seçiniz" itemValue="" />
+							<f:selectItems value="#{teacherController.teacherList}"
+										   itemLabel="#{teacher.name} #{teacher.surname} #{teacher.lesson.name}"
+										   itemValue="#{teacher}" var="teacher" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Atanacak Öğrenci : " />
+						<p:selectManyMenu id="studentDropdownId" value="#{teacherController.selectedStudents}"
+										  style="width: 100%"
+										  var="student" filter="true" filterMatchMode="contains" showCheckbox="true">
+							<f:selectItems value="#{teacherController.students}" var="st" itemLabel="#{st.name}" itemValue="#{st}" />
+
+							<p:column>
+								<h:outputText value="#{student.name}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{student.surname}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{student.number}" />
+							</p:column>
+						</p:selectManyMenu>
+					</h:panelGrid>
+					<p:commandButton value="Atama Yap" actionListener="#{teacherController.assignStudent()}"
+									 update="growl assingFormId"/>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</body>
+</html>
