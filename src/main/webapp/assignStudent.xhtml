@@ -25,6 +25,7 @@
 						<p:outputLabel value="Öğretmen : " />
 						<p:selectOneMenu id="teacherListId" value="#{teacherController.selectedTeacher}"
 						editable="true" converter="teacherConverter">
+							<p:ajax event="change" update="studentDropdownId" listener="#{teacherController.changeTeacher()}"/>
 							<f:selectItem itemLabel="Birini Seçiniz" itemValue="" />
 							<f:selectItems value="#{teacherController.teacherList}"
 										   itemLabel="#{teacher.name} #{teacher.surname} #{teacher.lesson.name}"
@@ -34,6 +35,7 @@
 						<p:selectManyMenu id="studentDropdownId" value="#{teacherController.selectedStudents}"
 										  style="width: 100%"
 										  var="student" filter="true" filterMatchMode="contains" showCheckbox="true">
+							<f:attribute name="collectionType" value="java.util.LinkedHashSet" />
 							<f:selectItems value="#{teacherController.students}" var="st" itemLabel="#{st.name}" itemValue="#{st}" />
 
 							<p:column>

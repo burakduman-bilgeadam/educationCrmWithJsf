@@ -1,12 +1,16 @@
 package com.example.educationCrm.model.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Teacher extends Person{
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @Fetch(value = FetchMode.SELECT)
     @JoinTable(name = "teachers_students"
             ,joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")

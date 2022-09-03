@@ -18,7 +18,7 @@ public class TeacherConverter implements Converter {
                                   String value) {
 
             if (value == null || value.equals("")) {
-                return null;
+                return "";
             }
             TeacherServiceImp teacherServiceImp = context.getApplication()
                     .evaluateExpressionGet(context, "#{teacherServiceImp}"

@@ -19,7 +19,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Scope(value = "view")
@@ -31,7 +34,7 @@ public class TeacherController {
     private Lesson selectedLesson;
 
     private List<Student> students;
-    private List<Student> selectedStudents;
+    private LinkedHashSet<Student> selectedStudents;
     private List<Teacher> teacherList;
     private List<Lesson> lessonList;
     private List<School> schoolList;
@@ -84,13 +87,20 @@ public class TeacherController {
         this.teacherList = this.teacherService.findTeacherByLesson(this.selectedLesson);
     }
 
+    public void changeTeacher(){
+        this.selectedStudents =
+                (LinkedHashSet<Student>) this.selectedTeacher.getStudents();
+    }
+
     public void assignStudent(){
-        this.selectedTeacher.setStudents(this.selectedStudents);
+        List<Student> studentList = new ArrayList<>();
+        studentList=this.selectedStudents.stream().map(s -> (Student)s).collect(Collectors.toList());
+        this.selectedTeacher.setStudents(studentList);
         this.teacherService.save(this.selectedTeacher);
         infoMessage("Atama Tamamlandı.", "Atama yapılan öğretmen : ",this.selectedTeacher);
         this.selectedTeacher = new Teacher();
         this.selectedLesson = new Lesson();
-        this.selectedStudents = new ArrayList<>();
+        this.selectedStudents = new LinkedHashSet<>();
     }
 
     public void infoMessage(String summary, String detail, Teacher teacher) {

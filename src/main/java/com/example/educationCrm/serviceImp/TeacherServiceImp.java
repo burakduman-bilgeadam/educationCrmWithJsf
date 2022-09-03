@@ -85,12 +85,14 @@ public class TeacherServiceImp implements TeacherService {
         this.teacherRepository.save(teacher);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Teacher withStudents(Long id)
             throws Exception {
         return this.teacherRepository.findById(id).orElse(null);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Teacher> findTeacherByLesson(Lesson lesson) {
         return this.teacherRepository.teacherByLesson(lesson);
